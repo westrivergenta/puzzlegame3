@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>モグラ叩き 60秒チャレンジ</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8ZGVmcz48Y2xpcFBhdGggaWQ9InIiPjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiByeD0iMjIiLz48L2NsaXBQYXRoPjwvZGVmcz4KICA8ZyBjbGlwLXBhdGg9InVybCgjcikiPgogICAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNiZmU2ZmYiLz4KICAgIDxyZWN0IHk9IjYyIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjM4IiBmaWxsPSIjN2NjOTZiIi8+CiAgICA8ZWxsaXBzZSBjeD0iNTAiIGN5PSI4MCIgcng9IjQwIiByeT0iMTIiIGZpbGw9IiMyZTFiMTAiLz4KICAgIDxjaXJjbGUgY3g9IjI4IiBjeT0iMjciIHI9IjgiIGZpbGw9IiM3YTRkMzEiLz48Y2lyY2xlIGN4PSI3MiIgY3k9IjI3IiByPSI4IiBmaWxsPSIjN2E0ZDMxIi8+CiAgICA8Y2lyY2xlIGN4PSIyOCIgY3k9IjI3IiByPSI0IiBmaWxsPSIjZTlhM2EzIi8+PGNpcmNsZSBjeD0iNzIiIGN5PSIyNyIgcj0iNCIgZmlsbD0iI2U5YTNhMyIvPgogICAgPHBhdGggZD0iTTE4IDk1IFY1MiBBMzIgMzIgMCAwIDEgODIgNTIgVjk1IFoiIGZpbGw9IiM4YTVhM2IiLz4KICAgIDxlbGxpcHNlIGN4PSI1MCIgY3k9Ijc0IiByeD0iMjAiIHJ5PSIxNiIgZmlsbD0iI2M5OWE3NCIvPgogICAgPGNpcmNsZSBjeD0iMzkiIGN5PSI0NyIgcj0iNC41IiBmaWxsPSIjMjIyIi8+PGNpcmNsZSBjeD0iNjEiIGN5PSI0NyIgcj0iNC41IiBmaWxsPSIjMjIyIi8+CiAgICA8Y2lyY2xlIGN4PSI0MC41IiBjeT0iNDUuNSIgcj0iMS41IiBmaWxsPSIjZmZmIi8+PGNpcmNsZSBjeD0iNjIuNSIgY3k9IjQ1LjUiIHI9IjEuNSIgZmlsbD0iI2ZmZiIvPgogICAgPGVsbGlwc2UgY3g9IjUwIiBjeT0iNTciIHJ4PSI3IiByeT0iNSIgZmlsbD0iI2YyOGFhMCIvPgogICAgPHBhdGggZD0iTTQwIDU3IGwtMTQgLTIgTTQwIDYwIGwtMTQgMyBNNjAgNTcgbDE0IC0yIE02MCA2MCBsMTQgMyIgc3Ryb2tlPSIjNWEzYTI2IiBzdHJva2Utd2lkdGg9IjEuMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgICA8cGF0aCBkPSJNNDUgNjMuNSBRNTAgNjcuNSA1NSA2My41IiBzdHJva2U9IiMyMjIiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgICA8ZWxsaXBzZSBjeD0iMjkiIGN5PSI1NyIgcng9IjUiIHJ5PSIzIiBmaWxsPSIjZjZhNWI0IiBvcGFjaXR5PSIuNyIvPgogICAgPGVsbGlwc2UgY3g9IjcxIiBjeT0iNTciIHJ4PSI1IiByeT0iMyIgZmlsbD0iI2Y2YTViNCIgb3BhY2l0eT0iLjciLz4KICAgIDxwYXRoIGQ9Ik0wIDgwIFE1MCA5OCAxMDAgODAgVjEwMCBIMCBaIiBmaWxsPSIjNWFhOTRiIi8+CiAgPC9nPgo8L3N2Zz4K">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<meta name="apple-mobile-web-app-title" content="モグラ叩き">
+<meta name="theme-color" content="#7cc96b">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky:#bfe6ff; --grass:#7cc96b; --grass-dark:#5aa94b;
+    --soil:#6b4226; --hole:#2e1b10;
+    --ink:#2b2b2b; --accent:#ff7a3d; --gold:#ffcf3d; --red:#e5484d; --blue:#3d7bff;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;height:100%;overflow:hidden;overscroll-behavior:none}
+  body{
+    font-family:"M PLUS Rounded 1c",system-ui,sans-serif;color:var(--ink);
+    background:linear-gradient(var(--sky) 0 210px, var(--grass) 210px 100%);
+    touch-action:manipulation;user-select:none;-webkit-user-select:none;
+    display:flex;flex-direction:column;align-items:center;transition:background .4s;
+  }
+  body.rush{background:linear-gradient(#ffb38a 0 210px, #e9a04a 210px 100%)}
+  body.rush .hole .front{background:#c9822f}
+  .wrap{width:100%;max-width:480px;height:100%;display:flex;flex-direction:column;padding:12px 14px 18px}
+
+  /* HUD */
+  .hud{display:flex;gap:8px;align-items:stretch}
+  .stat{flex:1;background:#fff;border-radius:14px;padding:6px 10px;box-shadow:0 3px 0 rgba(0,0,0,.12);text-align:center}
+  .stat small{display:block;font-size:11px;opacity:.6;font-weight:500}
+  .stat b{font-size:24px;font-weight:800;font-variant-numeric:tabular-nums}
+  .timebar{height:10px;background:rgba(255,255,255,.6);border-radius:99px;margin:10px 0 8px;overflow:hidden}
+  .timebar i{display:block;height:100%;width:100%;background:var(--accent);border-radius:99px;transition:width .1s linear}
+  .timebar i.hurry{background:var(--red)}
+
+  /* Mission */
+  .mission{background:#fff;border-radius:14px;padding:8px 12px;box-shadow:0 3px 0 rgba(0,0,0,.12);min-height:58px;position:relative;overflow:hidden}
+  .mtop{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800}
+  .mlabel{background:var(--blue);color:#fff;font-size:10px;padding:2px 6px;border-radius:6px;letter-spacing:.05em;flex:none}
+  #mText{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #mProg{font-variant-numeric:tabular-nums;color:var(--blue)}
+  .mbar{height:6px;background:#e8eefc;border-radius:99px;margin-top:7px;overflow:hidden}
+  .mbar i{display:block;height:100%;width:100%;background:var(--blue);border-radius:99px}
+  .mission.idle #mText{color:#999;font-weight:500}
+  .mission.idle .mlabel{background:#bbb}
+  .mission.clear{animation:flash .5s}
+  .mission.fail{animation:shake .35s}
+  @keyframes flash{30%{background:#fff3b0}}
+  @keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+  .rushinfo{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:800;margin:6px 2px 0;height:20px}
+  .pips{display:flex;gap:4px}
+  .pips span{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.7);border:2px solid #fff}
+  .pips span.on{background:var(--red)}
+  .combo{color:var(--accent)}
+
+  /* Field */
+  .field{flex:1;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,auto);gap:12px 12px;align-content:center;padding-top:4px}
+  .hole{position:relative;aspect-ratio:1/1.05;width:100%;overflow:hidden;border-radius:0 0 46% 46%;touch-action:none}
+  .hole::after{
+    content:"";position:absolute;left:4%;right:4%;bottom:4%;height:30%;
+    background:var(--hole);border-radius:50%;
+    box-shadow:0 6px 0 var(--soil), inset 0 6px 10px rgba(0,0,0,.5);z-index:0}
+  .mole{position:absolute;left:16%;width:68%;height:78%;bottom:-80%;z-index:1;transition:bottom .12s ease-out;pointer-events:none}
+  .hole .front{position:absolute;left:0;right:0;bottom:0;height:19%;z-index:2;background:var(--grass-dark);border-radius:0 0 46% 46%/0 0 100% 100%;transition:background .4s}
+  .mole.wide{left:4%;width:92%}
+  .hole.up .mole{bottom:6%}
+  .hole.hit .mole{bottom:-10%;transition:bottom .18s ease-in}
+  .hole.hit .mole svg{animation:squash .18s}
+  .hole.bonk .mole svg{animation:bonk .15s}
+  @keyframes squash{50%{transform:scale(1.15,.8)}}
+  @keyframes bonk{50%{transform:translateY(8%) scale(1.05,.92)}}
+
+  .pop{position:absolute;left:50%;top:14%;transform:translateX(-50%);font-weight:800;font-size:22px;white-space:nowrap;
+       z-index:5;pointer-events:none;animation:pop .6s forwards;text-shadow:0 2px 0 #fff}
+  .pop.small{font-size:16px}
+  @keyframes pop{to{transform:translate(-50%,-40px);opacity:0}}
+
+  /* 画面中央のお知らせ */
+  .banner{position:fixed;left:0;right:0;top:42%;text-align:center;z-index:8;pointer-events:none;
+          font-weight:800;font-size:34px;color:#fff;text-shadow:0 4px 0 rgba(0,0,0,.25), 0 0 18px rgba(0,0,0,.2);
+          animation:banner 1.3s forwards}
+  .banner small{display:block;font-size:18px}
+  @keyframes banner{0%{transform:scale(.4);opacity:0}15%{transform:scale(1.1);opacity:1}25%{transform:scale(1)}80%{opacity:1}100%{opacity:0;transform:translateY(-30px)}}
+
+  /* Overlay */
+  .overlay{position:fixed;inset:0;background:rgba(30,40,30,.55);display:flex;align-items:center;justify-content:center;z-index:10;padding:20px}
+  .overlay[hidden]{display:none}
+  .card{background:#fff;border-radius:22px;padding:22px 20px;width:100%;max-width:360px;text-align:center;box-shadow:0 8px 0 rgba(0,0,0,.15);max-height:100%;overflow:auto}
+  .card h1{margin:0 0 4px;font-size:28px;font-weight:800}
+  .card p{margin:6px 0;font-size:14px;line-height:1.6}
+  .rules{text-align:left;background:#f6f3ee;border-radius:12px;padding:10px 14px;margin:12px 0;font-size:13px;line-height:1.8}
+  .big{font-size:52px;font-weight:800;color:var(--accent);line-height:1;margin:6px 0}
+  .rank{display:inline-block;background:var(--ink);color:var(--gold);font-weight:800;font-size:20px;padding:6px 16px;border-radius:99px;margin:4px 0}
+  .rank-next{font-size:12px;opacity:.7}
+  .btn{appearance:none;border:0;background:var(--accent);color:#fff;font:inherit;font-weight:800;font-size:20px;
+       padding:14px 0;width:100%;border-radius:16px;box-shadow:0 5px 0 #c9541f;margin-top:10px}
+  .btn:active{transform:translateY(3px);box-shadow:0 2px 0 #c9541f}
+  .count{font-size:110px;font-weight:800;color:#fff;text-shadow:0 6px 0 rgba(0,0,0,.25)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:10px 0;font-size:12px}
+  .grid2 div{background:#f6f3ee;border-radius:10px;padding:6px 2px}
+  .grid2 b{display:block;font-size:19px}
+  .new{color:var(--red);font-weight:800}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hud">
+    <div class="stat"><small>スコア</small><b id="score">0</b></div>
+    <div class="stat"><small>のこり</small><b id="time">60</b></div>
+    <div class="stat"><small>ベスト</small><b id="best">0</b></div>
+  </div>
+  <div class="timebar"><i id="bar"></i></div>
+
+  <div class="mission idle" id="mission">
+    <div class="mtop"><span class="mlabel">MISSION</span><span id="mText">まもなく開始…</span><span id="mProg"></span></div>
+    <div class="mbar"><i id="mBar" style="width:0"></i></div>
+  </div>
+  <div class="rushinfo">
+    <span id="rushText">ラストラッシュまで</span>
+    <span class="pips" id="pips"></span>
+    <span class="combo" id="combo"></span>
+  </div>
+
+  <div class="field" id="field"></div>
+</div>
+
+<!-- スタート画面 -->
+<div class="overlay" id="startScreen">
+  <div class="card">
+    <h1>モグラ叩き</h1>
+    <p>60秒でどれだけ叩ける？</p>
+    <div class="rules" id="rules"></div>
+    <button class="btn" id="startBtn">スタート</button>
+  </div>
+</div>
+
+<!-- カウントダウン -->
+<div class="overlay" id="countScreen" hidden><div class="count" id="countNum">3</div></div>
+
+<!-- 結果画面 -->
+<div class="overlay" id="resultScreen" hidden>
+  <div class="card">
+    <h1>タイムアップ！</h1>
+    <div class="big" id="resScore">0</div>
+    <div class="rank" id="resRank"></div>
+    <div class="rank-next" id="resNext"></div>
+    <p id="resBest"></p>
+    <div class="grid2">
+      <div>ヒット<b id="resHit">0</b></div>
+      <div>命中率<b id="resAcc">0%</b></div>
+      <div>最大コンボ<b id="resCombo">0</b></div>
+      <div>ミッション<b id="resMission">0</b></div>
+      <div>ラッシュ<b id="resRush">-</b></div>
+      <div>ボム<b id="resBomb">0</b></div>
+    </div>
+    <button class="btn" id="retryBtn">もう一回</button>
+  </div>
+</div>
+
+<script>
+(() => {
+  // ================= 設定（ここを変えればバランス調整できます） =================
+  const CONFIG = {
+    duration: 60,                 // プレイ時間（秒）
+    holes: 9,
+    // 出現間隔・表示時間・同時出現数は「開始時 → 終了時」で変化
+    spawnInterval: [900, 420],    // ms
+    upTime:        [1150, 650],   // ms
+    maxActive:     [1, 3],
+    rates: { gold: 0.07, bomb: 0.12, trio: 0.13 },  // 残りは普通のモグラ
+    trioHp: 3,                    // 3兄弟モグラを倒すのに必要な回数（＝兄弟の数）
+    trioUpTimeScale: 2.0,         // 3兄弟は長めに出ている
+    points: { normal: 10, gold: 50, trio: 40, bomb: -30 },
+    comboStep: 5,                 // 5コンボごとに倍率+1
+    comboMaxMult: 3,              // 倍率の上限
+
+    // ミッション
+    missionFirstDelay: 3,         // 開始から最初のミッションまで（秒）
+    missionGap: 1.5,              // ミッション同士の間隔（秒）
+
+    // ラストラッシュ
+    rushNeed: 4,                 // 必要なミッションクリア数
+    rushSeconds: 10,              // 残り何秒から始まるか
+    rush: { spawnInterval: 230, upTime: 700, maxActive: 5, scoreScale: 1.5,
+            rates: { gold: 0.15, bomb: 0.10, trio: 0.05 } },
+
+    // ランク称号（score 以上でその称号）
+    ranks: [
+      { score: 0,    name: 'モグラの友だち' },
+      { score: 500,  name: '見習いハンマー' },
+      { score: 1000, name: '駆け出しハンター' },
+      { score: 1600, name: '一人前ハンター' },
+      { score: 2400, name: '腕利きハンター' },
+      { score: 3300, name: 'モグラ名人' },
+      { score: 4300, name: 'モグラ達人' },
+      { score: 5500, name: '伝説のハンマー' },
+    ],
+  };
+
+  // ミッション一覧：target 回で達成、limit 秒以内、reward 点
+  //   force: そのミッション中に必ず出すモグラ
+  //   on(e, m): イベントごとに進捗を更新。'fail' を返すと即失敗
+  const MISSIONS = [
+    { id: 'hit',    text: t => `モグラを${t}匹叩け`,        target: 5, limit: 8,  reward: 100,
+      on: e => e.t === 'defeat' ? 1 : 0 },
+    { id: 'trio',   text: () => `3兄弟モグラを全員倒せ`,      target: 1, limit: 12, reward: 150, force: 'trio',
+      on: e => e.t === 'defeat' && e.kind === 'trio' ? 1 : 0 },
+    { id: 'gold',   text: () => `金モグラを叩け`,            target: 1, limit: 10, reward: 150, force: 'gold',
+      on: e => e.t === 'defeat' && e.kind === 'gold' ? 1 : 0 },
+    { id: 'chain',  text: t => `ミスなしで${t}連続ヒット`,    target: 6, limit: 12, reward: 120,
+      on: e => e.t === 'defeat' ? 1 : (e.t === 'escape' || e.t === 'bomb' || e.t === 'empty') ? 'reset' : 0 },
+    { id: 'nobomb', text: t => `ボムに触らず${t}匹叩け`,      target: 7, limit: 12, reward: 120,
+      on: e => e.t === 'defeat' ? 1 : e.t === 'bomb' ? 'fail' : 0 },
+  ];
+
+  // ================= 見た目（オリジナルSVG） =================
+  const moleBody = (body, belly, face = 'normal') => `
+      <ellipse cx="50" cy="62" rx="44" ry="50" fill="${body}"/>
+      <ellipse cx="50" cy="80" rx="28" ry="26" fill="${belly}"/>
+      ${face === 'angry'
+        ? `<path d="M28 40 l13 5 M72 40 l-13 5" stroke="#222" stroke-width="3" stroke-linecap="round"/>`
+        : ''}
+      <circle cx="35" cy="47" r="5" fill="#222"/><circle cx="65" cy="47" r="5" fill="#222"/>
+      <circle cx="37" cy="45" r="1.6" fill="#fff"/><circle cx="67" cy="45" r="1.6" fill="#fff"/>
+      <ellipse cx="50" cy="60" rx="9" ry="6.5" fill="#f28aa0"/>
+      <path d="M44 68 Q50 73 56 68" stroke="#222" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      <ellipse cx="24" cy="60" rx="6" ry="3.5" fill="#f6a5b4" opacity=".6"/>
+      <ellipse cx="76" cy="60" rx="6" ry="3.5" fill="#f6a5b4" opacity=".6"/>`;
+  const svg = inner => `<svg viewBox="0 0 100 110" width="100%" height="100%">${inner}</svg>`;
+
+  // 3兄弟モグラ：叩くたびに1匹ずつ引っ込む（hp = 残っている匹数）
+  //   赤ハチマキ＝長男（真ん中・最後まで残る）、青＝次男（左）、緑＝三男（右）
+  const miniMole = (x, y, s, band, brows) => `
+    <g transform="translate(${x} ${y}) scale(${s})">
+      <circle cx="-15" cy="-21" r="6" fill="#7a4d31"/><circle cx="15" cy="-21" r="6" fill="#7a4d31"/>
+      <circle cx="-15" cy="-21" r="3" fill="#e9a3a3"/><circle cx="15" cy="-21" r="3" fill="#e9a3a3"/>
+      <ellipse cx="0" cy="2" rx="22" ry="28" fill="#8a5a3b"/>
+      <ellipse cx="0" cy="14" rx="14" ry="13" fill="#c99a74"/>
+      <path d="M-21.5 -11 Q0 -21 21.5 -11" stroke="${band}" stroke-width="6" fill="none"/>
+      <path d="M20 -12 l8 -6 l-1 8 Z M20 -12 l9 2 l-6 5 Z" fill="${band}"/>
+      ${brows ? '<path d="M-12 -7 l6 2 M12 -7 l-6 2" stroke="#222" stroke-width="1.8" stroke-linecap="round"/>' : ''}
+      <circle cx="-7.5" cy="-1" r="2.8" fill="#222"/><circle cx="7.5" cy="-1" r="2.8" fill="#222"/>
+      <circle cx="-6.6" cy="-2" r="1" fill="#fff"/><circle cx="8.4" cy="-2" r="1" fill="#fff"/>
+      <ellipse cx="0" cy="5.5" rx="4.5" ry="3.3" fill="#f28aa0"/>
+      <path d="M-3.5 10 Q0 12.5 3.5 10" stroke="#222" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+      <path d="M-9 6 l-9 -1 M-9 8 l-9 2 M9 6 l9 -1 M9 8 l9 2" stroke="#5a3a26" stroke-width=".9" stroke-linecap="round"/>
+      <ellipse cx="-14" cy="5" rx="3.5" ry="2" fill="#f6a5b4" opacity=".6"/>
+      <ellipse cx="14" cy="5" rx="3.5" ry="2" fill="#f6a5b4" opacity=".6"/>
+    </g>`;
+  const trioSVG = hp => `<svg viewBox="0 0 124 110" width="100%" height="100%">
+      ${hp >= 3 ? miniMole(24, 70, 0.95, '#3d7bff') : ''}
+      ${hp >= 2 ? miniMole(100, 70, 0.95, '#2fb36b') : ''}
+      ${miniMole(62, 58, 1.18, '#e5484d', hp === 1)}
+    </svg>`;
+  const bombSVG = svg(`
+      <circle cx="50" cy="66" r="38" fill="#2a2a35"/>
+      <circle cx="37" cy="52" r="9" fill="#fff" opacity=".18"/>
+      <rect x="42" y="18" width="16" height="14" rx="3" fill="#555"/>
+      <path d="M50 18 Q56 6 66 8" stroke="#a87b4f" stroke-width="3" fill="none"/>
+      <circle cx="68" cy="8" r="6" fill="#ffcf3d"/><circle cx="68" cy="8" r="3" fill="#ff7a3d"/>
+      <path d="M36 64 l8 6 M44 64 l-8 6 M56 64 l8 6 M64 64 l-8 6" stroke="#e5484d" stroke-width="3" stroke-linecap="round"/>`);
+  const LOOKS = {
+    normal: () => svg(moleBody('#8a5a3b', '#c99a74')),
+    gold:   () => svg(moleBody('#f2b822', '#ffe48a')),
+    trio:   hp => trioSVG(hp),
+    bomb:   () => bombSVG,
+  };
+
+  // ================= DOM =================
+  const $ = id => document.getElementById(id);
+  const field = $('field');
+  const holes = [];
+  for (let i = 0; i < CONFIG.holes; i++) {
+    const h = document.createElement('div');
+    h.className = 'hole';
+    h.innerHTML = `<div class="mole"></div><div class="front"></div>`;
+    h.addEventListener('pointerdown', e => { e.preventDefault(); onTap(i); });
+    field.appendChild(h);
+    holes.push({ el: h, mole: h.querySelector('.mole'), type: null, hp: 0,
+                 timer: null, hitTimer: null, active: false, busyUntil: 0 });
+  }
+  $('pips').innerHTML = '<span></span>'.repeat(CONFIG.rushNeed);
+  $('rules').innerHTML = `
+    🟤 モグラ：<b>+${CONFIG.points.normal}</b>　🟡 金モグラ：<b>+${CONFIG.points.gold}</b><br>
+    👨‍👦‍👦 3兄弟モグラ：<b>${CONFIG.trioHp}匹</b>とも叩いて <b>+${CONFIG.points.trio}</b><br>
+    💣 ボム：叩くと <b>${CONFIG.points.bomb}</b>＆コンボ切れ<br>
+    📋 画面上の<b>ミッション</b>を時間内にクリアでボーナス<br>
+    🔥 ミッションを<b>${CONFIG.rushNeed}つ</b>クリアすると、残り${CONFIG.rushSeconds}秒で<b>ラストラッシュ</b>！（得点×${CONFIG.rush.scoreScale}）<br>
+    🏅 スコアに応じて称号がもらえる`;
+
+  // ================= サウンド・振動 =================
+  let ac = null;
+  const beep = (freq, dur = 0.08, type = 'square', vol = 0.12) => {
+    if (!ac) return;
+    const o = ac.createOscillator(), g = ac.createGain();
+    o.type = type; o.frequency.value = freq;
+    g.gain.setValueAtTime(vol, ac.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + dur);
+    o.connect(g).connect(ac.destination); o.start(); o.stop(ac.currentTime + dur);
+  };
+  const jingle = (notes, step = 0.09) => notes.forEach((f, i) => setTimeout(() => beep(f, 0.12, 'square', 0.1), i * step * 1000));
+  const buzz = ms => { try { navigator.vibrate && navigator.vibrate(ms); } catch (_) {} };
+
+  // ================= ベストスコア =================
+  const loadBest = () => { try { return +localStorage.getItem('mogura-best') || 0; } catch (_) { return 0; } };
+  const saveBest = v => { try { localStorage.setItem('mogura-best', v); } catch (_) {} };
+  let best = loadBest(); $('best').textContent = best;
+
+  // ================= ゲーム状態 =================
+  let state, rafId, spawnTimer;
+  const lerp = ([a, b], t) => a + (b - a) * t;
+  const now = () => performance.now();
+  const elapsed = () => (now() - state.start) / 1000;
+  const remaining = () => Math.max(0, CONFIG.duration - elapsed());
+
+  function reset() {
+    state = { running: false, score: 0, start: 0, combo: 0, maxCombo: 0, hits: 0, taps: 0, goodTaps: 0, bombs: 0,
+              mission: null, nextMissionAt: CONFIG.missionFirstDelay, lastMissionId: null,
+              cleared: 0, missionsOver: false, rush: false, forceType: null };
+    holes.forEach(hideNow);
+    document.body.classList.remove('rush');
+    setMissionIdle('まもなく開始…');
+    updateHud();
+  }
+
+  function updateHud() {
+    const remain = state.running ? remaining() : CONFIG.duration;
+    $('score').textContent = state.score;
+    $('time').textContent = Math.ceil(remain);
+    const bar = $('bar');
+    bar.style.width = (remain / CONFIG.duration * 100) + '%';
+    bar.classList.toggle('hurry', remain <= CONFIG.rushSeconds);
+    $('combo').textContent = state.combo >= 3 ? `${state.combo}コンボ!` : '';
+    [...$('pips').children].forEach((p, i) => p.classList.toggle('on', i < state.cleared));
+    $('rushText').textContent = state.rush ? '🔥 ラストラッシュ中！'
+      : state.cleared >= CONFIG.rushNeed ? '🔥 ラッシュ解放！'
+      : `ラッシュまで あと${CONFIG.rushNeed - state.cleared}`;
+    // ミッションの残り時間バー
+    const m = state.mission;
+    if (m) $('mBar').style.width = Math.max(0, 1 - (elapsed() - m.start) / m.def.limit) * 100 + '%';
+  }
+
+  // ================= 出現 =================
+  function params() {
+    const t = Math.min(1, elapsed() / CONFIG.duration);
+    if (state.rush) {
+      const r = CONFIG.rush;
+      return { interval: r.spawnInterval, up: r.upTime, max: r.maxActive, rates: r.rates };
+    }
+    return { interval: lerp(CONFIG.spawnInterval, t), up: lerp(CONFIG.upTime, t),
+             max: Math.round(lerp(CONFIG.maxActive, t)), rates: CONFIG.rates };
+  }
+
+  function pickType(rates) {
+    if (state.forceType) { const f = state.forceType; state.forceType = null; return f; }
+    const r = Math.random();
+    if (r < rates.gold) return 'gold';
+    if (r < rates.gold + rates.bomb) return 'bomb';
+    if (r < rates.gold + rates.bomb + rates.trio) return 'trio';
+    return 'normal';
+  }
+
+  function spawn() {
+    if (!state.running) return;
+    const p = params();
+    if (holes.filter(h => h.active).length < p.max) {
+      const t = now();
+      const free = holes.filter(h => !h.active && t >= h.busyUntil);
+      if (free.length) {
+        const h = free[Math.floor(Math.random() * free.length)];
+        const type = pickType(p.rates);
+        const up = p.up * (type === 'gold' ? 0.6 : type === 'trio' ? CONFIG.trioUpTimeScale : 1);
+        show(h, type, up);
+      }
+    }
+    spawnTimer = setTimeout(spawn, p.interval * (0.7 + Math.random() * 0.6));
+  }
+
+  function show(h, type, upTime) {
+    clearTimeout(h.hitTimer);
+    h.type = type; h.active = true; h.hp = type === 'trio' ? CONFIG.trioHp : 1;
+    h.mole.innerHTML = LOOKS[type](h.hp);
+    h.mole.classList.toggle('wide', type === 'trio');
+    h.el.classList.remove('hit', 'bonk');
+    void h.el.offsetWidth;
+    h.el.classList.add('up');
+    h.timer = setTimeout(() => {
+      if (h.active && h.type !== 'bomb') { state.combo = 0; missionEvent({ t: 'escape', kind: h.type }); }
+      hide(h);
+    }, upTime);
+  }
+  function hide(h) {
+    clearTimeout(h.timer); h.active = false;
+    h.busyUntil = now() + 300;
+    h.el.classList.remove('up');
+  }
+  function hideNow(h) { hide(h); clearTimeout(h.hitTimer); h.el.classList.remove('hit', 'bonk'); h.type = null; h.busyUntil = 0; }
+
+  // ================= タップ =================
+  const scale = pts => state.rush && pts > 0 ? Math.round(pts * CONFIG.rush.scoreScale) : pts;
+
+  function onTap(i) {
+    if (!state || !state.running) return;
+    const h = holes[i];
+    state.taps++;
+    if (!h.active) { missionEvent({ t: 'empty' }); return; }
+
+    // 3兄弟：まだ残っている兄弟がいる
+    if (h.type === 'trio' && h.hp > 1) {
+      h.hp--; state.goodTaps++;
+      h.mole.innerHTML = LOOKS.trio(h.hp);
+      h.el.classList.remove('bonk'); void h.el.offsetWidth; h.el.classList.add('bonk');
+      popText(h.el, h.hp === 1 ? 'あと1匹!' : 'ポコッ!', '#8a5a3b', true);
+      beep(900 + (CONFIG.trioHp - h.hp) * 220, 0.06, 'triangle', 0.15); buzz(10);
+      return;
+    }
+
+    let pts, color;
+    if (h.type === 'bomb') {
+      pts = CONFIG.points.bomb; state.combo = 0; state.bombs++;
+      color = 'var(--red)'; beep(90, 0.25, 'sawtooth', 0.2); buzz(120);
+      missionEvent({ t: 'bomb' });
+    } else {
+      state.combo++; state.hits++; state.goodTaps++;
+      state.maxCombo = Math.max(state.maxCombo, state.combo);
+      const mult = Math.min(CONFIG.comboMaxMult, 1 + Math.floor(state.combo / CONFIG.comboStep));
+      pts = scale(CONFIG.points[h.type] * mult);
+      color = h.type === 'gold' ? '#d99a00' : h.type === 'trio' ? '#c0392b' : 'var(--accent)';
+      beep(h.type === 'gold' ? 1320 : h.type === 'trio' ? 1560 : 660 + Math.min(state.combo, 20) * 20, 0.09); buzz(15);
+      missionEvent({ t: 'defeat', kind: h.type });
+    }
+    addScore(pts);
+    popText(h.el, (pts > 0 ? '+' : '') + pts, color);
+    clearTimeout(h.timer); h.active = false;
+    h.busyUntil = now() + 500;
+    h.el.classList.add('hit');
+    h.hitTimer = setTimeout(() => h.el.classList.remove('up', 'hit'), 180);
+  }
+
+  function addScore(pts) { state.score = Math.max(0, state.score + pts); }
+
+  function popText(el, txt, color, small) {
+    const p = document.createElement('div');
+    p.className = 'pop' + (small ? ' small' : ''); p.textContent = txt; p.style.color = color;
+    el.appendChild(p);
+    setTimeout(() => p.remove(), 600);
+  }
+
+  function banner(html) {
+    const b = document.createElement('div');
+    b.className = 'banner'; b.innerHTML = html;
+    document.body.appendChild(b);
+    setTimeout(() => b.remove(), 1300);
+  }
+
+  // ================= ミッション =================
+  function setMissionIdle(text) {
+    const el = $('mission');
+    el.classList.add('idle');
+    $('mText').textContent = text; $('mProg').textContent = ''; $('mBar').style.width = '0';
+  }
+
+  function startMission() {
+    const pool = MISSIONS.filter(m => m.id !== state.lastMissionId);
+    const def = pool[Math.floor(Math.random() * pool.length)];
+    state.mission = { def, start: elapsed(), p: 0 };
+    state.lastMissionId = def.id;
+    if (def.force) state.forceType = def.force;
+    const el = $('mission');
+    el.classList.remove('idle', 'clear', 'fail');
+    $('mText').textContent = def.text(def.target) + `（+${def.reward}）`;
+    $('mProg').textContent = `0/${def.target}`;
+    beep(990, 0.06, 'triangle'); setTimeout(() => beep(1320, 0.08, 'triangle'), 70);
+  }
+
+  function missionEvent(e) {
+    const m = state.mission;
+    if (!m) return;
+    const r = m.def.on(e, m);
+    if (r === 'fail') return endMission(false);
+    if (r === 'reset') m.p = 0; else m.p += r;
+    $('mProg').textContent = `${Math.min(m.p, m.def.target)}/${m.def.target}`;
+    if (m.p >= m.def.target) endMission(true);
+  }
+
+  function endMission(success, quiet) {
+    const m = state.mission; if (!m) return;
+    state.mission = null;
+    state.nextMissionAt = elapsed() + CONFIG.missionGap;
+    const el = $('mission');
+    el.classList.remove('clear', 'fail'); void el.offsetWidth;
+    if (success) {
+      state.cleared++;
+      addScore(m.def.reward);
+      el.classList.add('clear');
+      setMissionIdle(`クリア！ +${m.def.reward}`);
+      banner(`MISSION CLEAR!<small>+${m.def.reward}点</small>`);
+      jingle([784, 988, 1175, 1568]); buzz([20, 40, 20]);
+      if (state.cleared === CONFIG.rushNeed) setTimeout(() => banner(`🔥 ラッシュ解放！<small>残り${CONFIG.rushSeconds}秒で発動</small>`), 1100);
+    } else {
+      el.classList.add('fail');
+      setMissionIdle(quiet ? 'ミッション終了' : '失敗…');
+      if (!quiet) beep(200, 0.2, 'triangle');
+    }
+  }
+
+  function tickMission() {
+    if (state.missionsOver) return;
+    // 残り rushSeconds 秒でミッションは終了 → ラッシュ判定
+    if (remaining() <= CONFIG.rushSeconds) {
+      state.missionsOver = true;
+      if (state.mission) endMission(false, true);
+      state.forceType = null;
+      if (state.cleared >= CONFIG.rushNeed) startRush();
+      else { setMissionIdle('ミッション終了'); banner(`ラストスパート！<small>ラッシュは不発…</small>`); }
+      return;
+    }
+    const m = state.mission;
+    if (m && elapsed() - m.start >= m.def.limit) endMission(false);
+    else if (!m && elapsed() >= state.nextMissionAt) startMission();
+  }
+
+  function startRush() {
+    state.rush = true;
+    document.body.classList.add('rush');
+    setMissionIdle(`ラストラッシュ！ 得点×${CONFIG.rush.scoreScale}`);
+    banner(`🔥 LAST RUSH! 🔥<small>得点×${CONFIG.rush.scoreScale}</small>`);
+    jingle([523, 659, 784, 1047, 1319], 0.07); buzz([40, 30, 40]);
+    clearTimeout(spawnTimer); spawn();
+  }
+
+  // ================= 進行 =================
+  function loop() {
+    tickMission();
+    updateHud();
+    if (remaining() <= 0) return end();
+    rafId = requestAnimationFrame(loop);
+  }
+
+  function countdown() {
+    const scr = $('countScreen'), num = $('countNum');
+    let n = 3; scr.hidden = false; num.textContent = n; beep(440, 0.1);
+    const iv = setInterval(() => {
+      n--;
+      if (n > 0) { num.textContent = n; beep(440, 0.1); }
+      else { clearInterval(iv); scr.hidden = true; beep(880, 0.2); begin(); }
+    }, 700);
+  }
+
+  function begin() {
+    state.running = true; state.start = now();
+    spawn(); loop();
+  }
+
+  function rankFor(score) {
+    let idx = 0;
+    CONFIG.ranks.forEach((r, i) => { if (score >= r.score) idx = i; });
+    return { cur: CONFIG.ranks[idx], next: CONFIG.ranks[idx + 1] };
+  }
+
+  function end() {
+    state.running = false;
+    clearTimeout(spawnTimer); cancelAnimationFrame(rafId);
+    holes.forEach(hideNow);
+    document.body.classList.remove('rush');
+    setMissionIdle('おつかれさま！');
+    updateHud();
+    beep(523, 0.15); setTimeout(() => beep(392, 0.3), 160);
+    const isNew = state.score > best;
+    if (isNew) { best = state.score; saveBest(best); $('best').textContent = best; }
+    const { cur, next } = rankFor(state.score);
+    $('resScore').textContent = state.score;
+    $('resRank').textContent = '🏅 ' + cur.name;
+    $('resNext').textContent = next ? `次の「${next.name}」まで あと${next.score - state.score}点` : '最高ランク達成！';
+    $('resBest').innerHTML = isNew ? '<span class="new">🎉 ベスト更新！</span>' : `ベスト：${best}`;
+    $('resHit').textContent = state.hits;
+    $('resAcc').textContent = state.taps ? Math.round(state.goodTaps / state.taps * 100) + '%' : '0%';
+    $('resCombo').textContent = state.maxCombo;
+    $('resMission').textContent = state.cleared;
+    $('resRush').textContent = state.rush ? '発動' : '-';
+    $('resBomb').textContent = state.bombs;
+    setTimeout(() => $('resultScreen').hidden = false, 400);
+  }
+
+  function startGame() {
+    try { ac = ac || new (window.AudioContext || window.webkitAudioContext)(); ac.resume(); } catch (_) { ac = null; }
+    $('startScreen').hidden = true; $('resultScreen').hidden = true;
+    reset(); countdown();
+  }
+
+  $('startBtn').addEventListener('click', startGame);
+  $('retryBtn').addEventListener('click', startGame);
+  document.addEventListener('gesturestart', e => e.preventDefault());
+  reset();
+})();
+</script>
+</body>
+</html>
