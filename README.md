@@ -45,14 +45,16 @@
 
 1. **プロジェクトを作る**：Supabase でプロジェクトを作ります（無料プランでよい）。リージョンは「Northeast Asia (Tokyo)」がおすすめです。
 2. **テーブルと関数を作る**：ブラウザの自動翻訳をオフにしてから、「SQL Editor」に [`supabase/schema.sql`](supabase/schema.sql) を全文貼り付けて「Run」します。「Success. No rows returned」と出れば成功です。翻訳されたままだとSQLが壊れます。
-3. **接続情報を入れる**：「Project Settings → API Keys」で Project URL と公開用キー（Publishable key）をコピーし、[`config.js`](config.js) に入れます。
+3. **接続情報を入れる**：「Project Settings → API Keys」で Project URL と公開用キー（Publishable key）をコピーし、[`config.js`](config.js) に入れます。まるおゲーム共通の書き方（`MARUO_CONFIG`）をそのまま使えます。
 
    ```js
-   window.MOGURA_CONFIG = {
-     SUPABASE_URL: 'https://xxxxxxxx.supabase.co',
-     SUPABASE_ANON_KEY: 'sb_publishable_xxxxxxxx'
+   window.MARUO_CONFIG = window.MARUO_CONFIG || {
+     SUPABASE_URL: 'https://xxxxxxxx.supabase.co',   // ← 行の最後のカンマを忘れずに
+     SUPABASE_KEY: 'sb_publishable_xxxxxxxx'
    };
    ```
+
+   このゲームだけ別のサーバーにしたいときは、`window.MOGURA_CONFIG = { SUPABASE_URL: '…', SUPABASE_ANON_KEY: '…' };` と書けば、そちらが優先されます（キーの項目名は `SUPABASE_KEY` でも `SUPABASE_ANON_KEY` でも可）。
 
 4. **アップロードする**：`config.js` を GitHub にアップロードします。
 5. **確認する**：1回遊んで、ランキングに自分の名前が出れば完了です。うまくいかないときは、Supabase の「Logs → API」で確認してください（404：SQL未実行、401：キー違い）。
@@ -61,17 +63,18 @@
 
 ### サーバー側（`supabase/schema.sql`）
 
-- テーブル `scores`：`player_id`（秘密ID）、`pub_id`（公開ID）、`name`（1〜12文字）、`best`（0〜20,000）、`updated_at`
+- 同じ Supabase プロジェクトを他のゲームと共用できるよう、テーブルと関数の名前はすべて `mogura_` で始めています。ラマダッシュなど、他のゲームの `scores` テーブルや関数には触りません。
+- テーブル `mogura_scores`：`player_id`（秘密ID）、`pub_id`（公開ID）、`name`（1〜12文字）、`best`（0〜20,000）、`updated_at`
 - テーブルへの直接アクセスは禁止です。公開用キーから呼べるのは次の3関数だけです。
-  - `submit_score`：未登録なら追加します。登録済みなら名前は毎回更新し、記録は高いときだけ更新します。範囲外の記録、空や13文字以上の名前、形式違いの公開IDは拒否します。
-  - `get_leaderboard`：記録の高い順に上位を返します（既定50件、最大100件）。同点は先に記録した人が上です。
-  - `get_rank`：その記録より高い人数＋1を返します。
-- 以前の版（1プレイ1行）の `scores` テーブルがある場合は、消さずに `scores_old_v1` という名前で退避します。
+  - `mogura_submit_score`：未登録なら追加します。登録済みなら名前は毎回更新し、記録は高いときだけ更新します。範囲外の記録、空や13文字以上の名前、形式違いの公開IDは拒否します。
+  - `mogura_get_leaderboard`：記録の高い順に上位を返します（既定50件、最大100件）。同点は先に記録した人が上です。
+  - `mogura_get_rank`：その記録より高い人数＋1を返します。
+- このゲームの最初の版（1プレイ1行）の `scores` テーブルがある場合は、消さずに `mogura_scores_old_v1` という名前で退避します。
 
 ### 更新・運用するとき
 
 - ゲームを更新するときは、変更したファイルだけを上書きアップロードしてください。**キー入りの `config.js` を、空のもので上書きしないよう注意してください。**
-- ブラウザだけで動く仕組みなので、詳しい人による偽スコアの送信は完全には防げません。他人の記録は書き換えられず、極端な値はサーバーが拒否します。怪しい記録は「Table Editor」の `scores` から削除できます。
+- ブラウザだけで動く仕組みなので、詳しい人による偽スコアの送信は完全には防げません。他人の記録は書き換えられず、極端な値はサーバーが拒否します。怪しい記録は「Table Editor」の `mogura_scores` から削除できます。
 - Supabase の無料プランは、1週間アクセスがないと一時停止します。停止中もゲームは遊べ、自己ベストは端末に保留され、管理画面から再開したあとに送信されます。
 
 ## バランス調整

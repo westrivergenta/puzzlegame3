@@ -647,10 +647,13 @@
   $('retryBtn').addEventListener('click', startGame);
 
   // ================= 全体ランキングとオフライン同期 =================
-  //   接続情報は config.js の window.MOGURA_CONFIG から読む（空ならランキング無効、自己ベストのみ記録）
+  //   接続情報は config.js から読む（空ならランキング無効、自己ベストのみ記録）
+  //   ・このゲーム専用の window.MOGURA_CONFIG があればそれを使い、なければシリーズ共通の window.MARUO_CONFIG を使う
+  //   ・キーの項目名は SUPABASE_ANON_KEY と SUPABASE_KEY のどちらでもよい
+  const RK_CFG = window.MOGURA_CONFIG || window.MARUO_CONFIG || {};
   const RK = {
-    url: String((window.MOGURA_CONFIG || {}).SUPABASE_URL || '').trim().replace(/\/+$/, ''),
-    key: String((window.MOGURA_CONFIG || {}).SUPABASE_ANON_KEY || '').trim(),
+    url: String(RK_CFG.SUPABASE_URL || '').trim().replace(/\/+$/, ''),
+    key: String(RK_CFG.SUPABASE_ANON_KEY || RK_CFG.SUPABASE_KEY || '').trim(),
     fetchLimit: 50,      // 取得件数
     showLimit: 20,       // 表示件数
     timeout: 8000,       // 通信のタイムアウト（ms）
@@ -718,13 +721,13 @@
     try {
       if (hasUnsent()) {
         const sentBest = best, sentName = nickname;
-        await rpc('submit_score', { p_player_id: playerId, p_pub_id: pubId, p_name: sentName, p_best: sentBest });
+        await rpc('mogura_submit_score', { p_player_id: playerId, p_pub_id: pubId, p_name: sentName, p_best: sentBest });
         syncedBest = Math.max(syncedBest, sentBest); ls.set('mogura-synced-best', syncedBest);
         if (sentName === nickname) { nameDirty = false; ls.set('mogura-name-dirty', '0'); }
       }
       const [rows, rank] = await Promise.all([
-        rpc('get_leaderboard', { p_limit: RK.fetchLimit }),
-        best > 0 ? rpc('get_rank', { p_best: best }) : Promise.resolve(null),
+        rpc('mogura_get_leaderboard', { p_limit: RK.fetchLimit }),
+        best > 0 ? rpc('mogura_get_rank', { p_best: best }) : Promise.resolve(null),
       ]);
       boardCache = { rows: Array.isArray(rows) ? rows : [], rank: typeof rank === 'number' ? rank : null, rankFor: best, at: Date.now() };
       ls.set('mogura-board-cache', JSON.stringify(boardCache));

@@ -6,28 +6,29 @@
 -- 「Success. No rows returned」と出れば成功です。何度実行しても大丈夫です。
 --
 -- 1人1行で自己ベストを保存します。公開用キー（Publishable key / anon key）から
--- 呼べるのは submit_score / get_leaderboard / get_rank の3関数だけで、
+-- 呼べるのは mogura_submit_score / mogura_get_leaderboard / mogura_get_rank の3関数だけで、
 -- テーブルへの直接アクセスはできません。
+-- 同じ Supabase プロジェクトを他のゲームと共用できるよう、テーブル・関数・索引の名前は
+-- すべて mogura_ で始めています（他のゲームの scores などには触りません）。
 -- =====================================================================
 
--- 0) 以前の版（1プレイ1行の scores テーブル）があれば、消さずに scores_old_v1 へ退避する
+-- 0) このゲームの以前の版（1プレイ1行の public.mogura_scores：missions・max_combo 列がある）があれば、
+--    消さずに mogura_scores_old_v1 へ退避する。他のゲームの scores テーブルには触らない。
 do $$
 begin
-  if exists (
-       select 1 from information_schema.tables
-       where table_schema = 'public' and table_name = 'scores')
-     and not exists (
-       select 1 from information_schema.columns
-       where table_schema = 'public' and table_name = 'scores' and column_name = 'player_id')
+  if exists (select 1 from information_schema.columns
+             where table_schema = 'public' and table_name = 'scores' and column_name = 'missions')
+     and exists (select 1 from information_schema.columns
+             where table_schema = 'public' and table_name = 'scores' and column_name = 'max_combo')
   then
     drop function if exists public.submit_score(text, integer, integer, integer);
-    alter table public.scores rename to scores_old_v1;
-    revoke all on public.scores_old_v1 from anon, authenticated;
+    alter table public.scores rename to mogura_scores_old_v1;
+    revoke all on public.mogura_scores_old_v1 from anon, authenticated;
   end if;
 end $$;
 
 -- 1) テーブル ----------------------------------------------------------
-create table if not exists public.scores (
+create table if not exists public.mogura_scores (
   player_id   uuid        primary key,                       -- 書き込み用の秘密ID（ランキングには出さない）
   pub_id      text        not null unique check (pub_id ~ '^[0-9a-f]{12}$'),  -- 表示用の公開ID
   name        text        not null check (char_length(name) between 1 and 12),
@@ -35,15 +36,15 @@ create table if not exists public.scores (
   updated_at  timestamptz not null default now()             -- 自己ベストを更新した時刻
 );
 
-create index if not exists scores_best_idx on public.scores (best desc, updated_at asc);
+create index if not exists mogura_scores_best_idx on public.mogura_scores (best desc, updated_at asc);
 
 -- 2) アクセス制限：テーブルへの直接アクセスは禁止 -----------------------
-alter table public.scores enable row level security;
-revoke all on public.scores from anon, authenticated;
+alter table public.mogura_scores enable row level security;
+revoke all on public.mogura_scores from anon, authenticated;
 -- （ポリシーを1つも作らないので、公開用キーからは読み書きとも不可。下の関数だけが触れる）
 
 -- 3) 名前の整形：制御文字と < > を取り除き、前後の空白を削る ---------------
-create or replace function public._clean_name(p_name text)
+create or replace function public.mogura_clean_name(p_name text)
 returns text
 language sql
 immutable
@@ -54,7 +55,7 @@ $$;
 -- 4) 記録の送信 --------------------------------------------------------
 --   未登録なら追加。登録済みなら名前は毎回更新し、記録は今より高いときだけ更新
 --   （更新時刻もそのときだけ変わる）。
-create or replace function public.submit_score(
+create or replace function public.mogura_submit_score(
   p_player_id uuid,
   p_pub_id    text,
   p_name      text,
@@ -66,7 +67,7 @@ security definer
 set search_path = public
 as $$
 declare
-  v_name text := public._clean_name(p_name);
+  v_name text := public.mogura_clean_name(p_name);
 begin
   if p_player_id is null then
     raise exception 'player_id がありません' using errcode = '22023';
@@ -81,7 +82,7 @@ begin
     raise exception '記録が正しくありません' using errcode = '22023';
   end if;
 
-  insert into public.scores as s (player_id, pub_id, name, best, updated_at)
+  insert into public.mogura_scores as s (player_id, pub_id, name, best, updated_at)
   values (p_player_id, p_pub_id, v_name, p_best, now())
   on conflict (player_id) do update
     set name       = excluded.name,
@@ -91,7 +92,7 @@ end;
 $$;
 
 -- 5) 上位の取得：記録の高い順、同点は先に記録した人が上 ---------------------
-create or replace function public.get_leaderboard(p_limit integer default 50)
+create or replace function public.mogura_get_leaderboard(p_limit integer default 50)
 returns table (pub_id text, name text, best integer, updated_at timestamptz)
 language sql
 stable
@@ -99,27 +100,27 @@ security definer
 set search_path = public
 as $$
   select s.pub_id, s.name, s.best, s.updated_at
-  from public.scores s
+  from public.mogura_scores s
   order by s.best desc, s.updated_at asc
   limit least(greatest(coalesce(p_limit, 50), 1), 100);
 $$;
 
 -- 6) 順位の取得：その記録より高い人数＋1 ---------------------------------
-create or replace function public.get_rank(p_best integer)
+create or replace function public.mogura_get_rank(p_best integer)
 returns integer
 language sql
 stable
 security definer
 set search_path = public
 as $$
-  select (count(*) + 1)::integer from public.scores s where s.best > coalesce(p_best, 0);
+  select (count(*) + 1)::integer from public.mogura_scores s where s.best > coalesce(p_best, 0);
 $$;
 
 -- 7) 実行権限：3関数を anon・authenticated にだけ与える --------------------
-revoke all on function public._clean_name(text) from public, anon, authenticated;
-revoke all on function public.submit_score(uuid, text, text, integer) from public;
-revoke all on function public.get_leaderboard(integer) from public;
-revoke all on function public.get_rank(integer) from public;
-grant execute on function public.submit_score(uuid, text, text, integer) to anon, authenticated;
-grant execute on function public.get_leaderboard(integer) to anon, authenticated;
-grant execute on function public.get_rank(integer) to anon, authenticated;
+revoke all on function public.mogura_clean_name(text) from public, anon, authenticated;
+revoke all on function public.mogura_submit_score(uuid, text, text, integer) from public;
+revoke all on function public.mogura_get_leaderboard(integer) from public;
+revoke all on function public.mogura_get_rank(integer) from public;
+grant execute on function public.mogura_submit_score(uuid, text, text, integer) to anon, authenticated;
+grant execute on function public.mogura_get_leaderboard(integer) to anon, authenticated;
+grant execute on function public.mogura_get_rank(integer) to anon, authenticated;
