@@ -220,7 +220,7 @@
     rates: { gold: 0.07, bomb: 0.12, trio: 0.13 },  // 残りは普通のモグラ
     trioHp: 3,                    // 3兄弟モグラを倒すのに必要な回数（＝兄弟の数）
     trioUpTimeScale: 2.0,         // 3兄弟は長めに出ている
-    points: { normal: 10, gold: 50, trio: 40, bomb: -30 },
+    points: { normal: 10, gold: 50, trio: [10, 20, 30], bomb: -30 },   // 3兄弟は1回目・2回目・3回目の点数（コンボ倍率はかけない）
     comboStep: 5,                 // 5コンボごとに倍率+1
     comboMaxMult: 3,              // 倍率の上限
 
@@ -332,7 +332,7 @@
   $('pips').innerHTML = '<span></span>'.repeat(CONFIG.rushNeed);
   $('rules').innerHTML = `
     🟤 モグラ：<b>+${CONFIG.points.normal}</b>　🟡 金モグラ：<b>+${CONFIG.points.gold}</b><br>
-    👨‍👦‍👦 3兄弟モグラ：<b>${CONFIG.trioHp}匹</b>とも叩いて <b>+${CONFIG.points.trio}</b><br>
+    👨‍👦‍👦 3兄弟モグラ：1匹ずつ <b>${CONFIG.points.trio.map(n => '+' + n).join('→')}</b>（全員で <b>+${CONFIG.points.trio.reduce((a, b) => a + b, 0)}</b>）<br>
     💣 ボム：叩くと <b>${CONFIG.points.bomb}</b>＆コンボ切れ<br>
     📋 画面上の<b>ミッション</b>を時間内にクリアでボーナス<br>
     🔥 ミッションを<b>${CONFIG.rushNeed}つ</b>クリアすると、残り${CONFIG.rushSeconds}秒で<b>ラストラッシュ</b>！（得点×${CONFIG.rush.scoreScale}）<br>
@@ -457,10 +457,12 @@
 
     // 3兄弟：まだ残っている兄弟がいる
     if (h.type === 'trio' && h.hp > 1) {
+      const p = scale(CONFIG.points.trio[CONFIG.trioHp - h.hp]);   // 1回目10点、2回目20点
       h.hp--; state.goodTaps++;
+      addScore(p);
       h.mole.innerHTML = LOOKS.trio(h.hp);
       h.el.classList.remove('bonk'); void h.el.offsetWidth; h.el.classList.add('bonk');
-      popText(h.el, h.hp === 1 ? 'あと1匹!' : 'ポコッ!', '#8a5a3b', true);
+      popText(h.el, `+${p}` + (h.hp === 1 ? ' あと1匹!' : ''), '#8a5a3b', true);
       beep(900 + (CONFIG.trioHp - h.hp) * 220, 0.06, 'triangle', 0.15); buzz(10);
       return;
     }
@@ -474,7 +476,8 @@
       state.combo++; state.hits++; state.goodTaps++;
       state.maxCombo = Math.max(state.maxCombo, state.combo);
       const mult = Math.min(CONFIG.comboMaxMult, 1 + Math.floor(state.combo / CONFIG.comboStep));
-      pts = scale(CONFIG.points[h.type] * mult);
+      pts = h.type === 'trio' ? scale(CONFIG.points.trio[CONFIG.trioHp - 1])   // 3回目（30点）
+                              : scale(CONFIG.points[h.type] * mult);
       color = h.type === 'gold' ? '#d99a00' : h.type === 'trio' ? '#c0392b' : 'var(--accent)';
       beep(h.type === 'gold' ? 1320 : h.type === 'trio' ? 1560 : 660 + Math.min(state.combo, 20) * 20, 0.09); buzz(15);
       missionEvent({ t: 'defeat', kind: h.type });
