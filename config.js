@@ -4,6 +4,5 @@
 //   ※ 入れるのは公開用キー（sb_publishable_… または anon public）だけ。
 //     秘密のキー（sb_secret_…、service_role）は絶対に入れないでください。
 window.MOGURA_CONFIG = {
-  SUPABASE_URL: '',       // 例: 'https://xxxxxxxx.supabase.co'
-  SUPABASE_ANON_KEY: ''   // 例: 'sb_publishable_xxxxxxxx'（公開用キーのみ）
-};
+  SUPABASE_URL: 'https://ghhvpkfngtgmwzuvjfda.supabase.co'
+  SUPABASE_ANON_KEY: 'sb_publishable_htKvFnnY-3Tcc4eEEQKwEg_zMju3PZK'
